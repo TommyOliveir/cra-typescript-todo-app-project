@@ -1,1 +1,1 @@
-this project is build in react usereducer and typescript
+this project is build in react usereducer, styled components and typescript

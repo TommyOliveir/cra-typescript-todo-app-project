@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
+// import { MdDone } from "react-icons/md";
 
 // styles
 const StyledSingleTodo = styled.div`
@@ -11,15 +12,25 @@ const StyledSingleTodo = styled.div`
 `;
 
 interface SingleTodoProps {
-    todo: string
+  todo: string;
 }
 
-const SingleTodo = ({todo}: SingleTodoProps) => {
+const SingleTodo = ({ todo }: SingleTodoProps) => {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };
   return (
     <StyledSingleTodo>
-      <span>check {todo}</span> <button>x</button>
+      <span>
+        {" "}
+        <input type="checkbox" checked={checked} onChange={handleChange} />{" "}
+        {checked ? <s> {todo}</s> : todo}
+      </span>{" "}
+      <button>x</button>
     </StyledSingleTodo>
   );
-}
+};
 
-export default SingleTodo
+export default SingleTodo;
