@@ -2,6 +2,31 @@ import React, { useReducer, useState } from "react";
 import { Todo } from "./components/interface";
 import "./App.css";
 import InputField from "./components/InputField";
+import TodoList from "./components/TodoList";
+import styled from "styled-components";
+
+// styles
+const StyledTodo = styled.div`
+  background-color: #f7f7f7;
+  width: 600px;
+  height: 600px;
+  padding: 30px;
+  border-radius: 10px;
+`;
+
+const StyledSloganDiv = styled.div`
+  border: 1px red solid;
+  width: 600px;
+  overflow-wrap: break-word;
+  display: grid;
+  place-items: center;
+`;
+
+const StyledSlogan = styled.h1`
+  color: #fff;
+  font-size: 80px;
+  margin: 0;
+`;
 
 const initialState = {
   todos: [],
@@ -39,21 +64,31 @@ function App() {
 
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
-    dispatch({ type: "add_todo", payload: todo });
-    setTodo("");
+    if (todo) {
+      dispatch({ type: "add_todo", payload: todo });
+      setTodo("");
+    }
   }
   console.log(state.todos);
   return (
-    <div className="App">
-      <InputField
-        todo={todo}
-        setTodo={setTodo}
-        handleAdd={handleAdd}
-      ></InputField>
-      {state.todos.map((todo) => {
-        return <p>{todo.todo}</p>;
-      })}
-    </div>
+    <>
+      <div className="App">
+        <StyledTodo>
+          <h2>To-do-List</h2>
+          <InputField
+            todo={todo}
+            setTodo={setTodo}
+            handleAdd={handleAdd}
+          ></InputField>
+          <TodoList todos={state.todos} />
+        </StyledTodo>
+        <StyledSloganDiv>
+          <StyledSlogan>
+            Build <span style={{ color: "orange" }}>To-Do</span> List <span style={{ fontSize: "40px" }}>with Typescript</span>{" "}
+          </StyledSlogan>
+        </StyledSloganDiv>
+      </div>
+    </>
   );
 }
 

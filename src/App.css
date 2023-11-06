@@ -1,0 +1,16 @@
+.App {
+    background: #22165e;
+    display: flex;
+    padding: 90px;
+    height: 100vh;
+    gap: 40px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
