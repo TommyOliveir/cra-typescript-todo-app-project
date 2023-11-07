@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useCallback } from "react";
+import React, { useReducer, useState, useCallback, useMemo } from "react";
 import { Todo } from "./components/interface";
 import "./App.css";
 import InputField from "./components/InputField";
@@ -33,20 +33,20 @@ const initialState = {
 };
 
 // state
-interface TodosStateProps  {
+interface TodosStateProps {
   todos: Todo[];
-};
+}
 
 // actions
-interface TodoAddAction  {
+interface TodoAddAction {
   type: "add_todo";
   payload: string;
-};
+}
 
-interface TodoDoneDeleteAction  {
+interface TodoDoneDeleteAction {
   type: "done_todo" | "delete_todo";
   payload: number;
-};
+}
 
 type TodosAction = TodoAddAction | TodoDoneDeleteAction;
 
@@ -76,11 +76,9 @@ function todosReducer(state: TodosStateProps, action: TodosAction) {
   }
 }
 
-
 function App() {
   const [todo, setTodo] = useState<string>("");
   const [state, dispatch] = useReducer(todosReducer, initialState);
-
 
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -93,14 +91,15 @@ function App() {
 
   function handleDone(e: React.FormEvent, id: number) {
     dispatch({ type: "done_todo", payload: id });
-    console.log("done",  id);
+    console.log("done", id);
   }
-   const memoizedhandleDone = useCallback(handleDone, [state.todos]);
+  const memoizedhandleDone = useCallback(handleDone, [state.todos]);
 
   function handleDelete(e: React.FormEvent, id: number) {
     dispatch({ type: "delete_todo", payload: id });
-    console.log("delete",  id);
+    console.log("delete", id);
   }
+
 
   console.log(state.todos);
   return (
@@ -113,6 +112,7 @@ function App() {
             setTodo={setTodo}
             handleAdd={memoizedhandleAdd}
           ></InputField>
+         
           <TodoList
             todos={state.todos}
             handleDone={memoizedhandleDone}

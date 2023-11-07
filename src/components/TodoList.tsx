@@ -9,7 +9,7 @@ interface TodoListProps {
 }
 const TodoList = memo(({ todos, handleDone, handleDelete }: TodoListProps) => {
 // const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
-  console.log("todolist")
+ console.log('todlist')
   return (
     <div>
       TodoList
