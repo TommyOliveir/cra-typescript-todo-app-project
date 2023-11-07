@@ -32,19 +32,27 @@ const initialState = {
   todos: [],
 };
 
-// An interface for our actions
-interface todoAction {
-  type: string;
-  payload: string;
-}
-
-// An interface for our state
-interface initialStateProps {
+// state
+type TodosStateProps = {
   todos: Todo[];
-}
+};
 
-function todosReducer(state: initialStateProps, action: todoAction) {
+// actions
+type TodoAddAction = {
+  type: "add_todo";
+  payload: string;
+};
+
+type TodoDoneDeleteAction = {
+  type: "done_todo" | "delete_todo";
+  payload: number;
+};
+
+type TodosAction = TodoAddAction | TodoDoneDeleteAction;
+
+function todosReducer(state: TodosStateProps, action: TodosAction) {
   const { type, payload } = action;
+
   switch (type) {
     case "add_todo":
       return {
@@ -53,10 +61,21 @@ function todosReducer(state: initialStateProps, action: todoAction) {
           { id: Date.now(), todo: payload, isDone: false },
         ],
       };
+    case "done_todo":
+      return {
+        todos: state.todos.map((todo) =>
+          todo.id === payload ? { ...todo, isDone: !todo.isDone } : todo
+        ),
+      };
+    case "delete_todo":
+      return {
+        todos: state.todos.filter((todo) => todo.id !== payload),
+      };
     default:
       return state;
   }
 }
+
 
 function App() {
   const [todo, setTodo] = useState<string>("");
@@ -69,6 +88,17 @@ function App() {
       setTodo("");
     }
   }
+
+  function handleDone(e: React.FormEvent, id: number) {
+    dispatch({ type: "done_todo", payload: id });
+    console.log("done",  id);
+  }
+
+  function handleDelete(e: React.FormEvent, id: number) {
+    dispatch({ type: "delete_todo", payload: id });
+    console.log("delete",  id);
+  }
+
   console.log(state.todos);
   return (
     <>
@@ -80,11 +110,16 @@ function App() {
             setTodo={setTodo}
             handleAdd={handleAdd}
           ></InputField>
-          <TodoList todos={state.todos} />
+          <TodoList
+            todos={state.todos}
+            handleDone={handleDone}
+            handleDelete={handleDelete}
+          />
         </StyledTodo>
         <StyledSloganDiv>
           <StyledSlogan>
-            Build <span style={{ color: "orange" }}>To-Do</span> List <span style={{ fontSize: "40px" }}>with Typescript</span>{" "}
+            Build <span style={{ color: "orange" }}>To-Do</span> List{" "}
+            <span style={{ fontSize: "40px" }}>with Typescript</span>{" "}
           </StyledSlogan>
         </StyledSloganDiv>
       </div>

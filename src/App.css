@@ -4,6 +4,8 @@
     padding: 90px;
     height: 100vh;
     gap: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
 html, body {

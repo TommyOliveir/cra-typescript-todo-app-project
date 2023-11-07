@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 
 // styles
 const StyledInputContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+`;
+
+const StyledButton = styled.button`
+  background: #ffa500;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 1em 2em;
+  margin-left: 5px
 `;
 
 interface InputFieldProps {
@@ -15,21 +26,30 @@ interface InputFieldProps {
 }
 
 const InputField = ({ todo, setTodo, handleAdd }: InputFieldProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  },[todo])
+
   return (
     <div>
       <form
         action=""
         onSubmit={(e) => {
           handleAdd(e);
+          inputRef.current?.blur();
         }}
       >
         <StyledInputContainer>
-          <input style={{width: '90%', padding: '4px'}}
+          <input
+            ref={inputRef}
+            style={{ width: "90%", padding: "10px", fontSize: '1em' }}
             type="text"
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
           />
-          <button>Save</button>
+          <StyledButton>Save</StyledButton>
         </StyledInputContainer>
       </form>
     </div>

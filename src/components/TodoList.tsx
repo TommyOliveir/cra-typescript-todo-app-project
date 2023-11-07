@@ -4,16 +4,24 @@ import SingleTodo from "./SingleTodo";
 
 interface TodoListProps {
   todos: Todo[];
+  handleDone: (e: React.FormEvent, id: number) => void;
+  handleDelete: (e: React.FormEvent, id: number) => void;
 }
 
-const TodoList = ({ todos }: TodoListProps) => {
+const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
   return (
     <div>
       TodoList
       {todos.map((todo) => {
         return (
           <>
-            <SingleTodo todo={todo.todo} />
+            <SingleTodo
+              key={todo.id}
+              id={todo.id}
+              todo={todo.todo}
+              handleDone={handleDone}
+              handleDelete={handleDelete}
+            />
           </>
         );
       })}
