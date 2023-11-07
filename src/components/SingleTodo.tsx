@@ -29,7 +29,7 @@ const SingleTodo = ({
   const handleChange = () => {
     setChecked(!checked);
   };
-
+console.log('singletodo')
   return (
     <StyledSingleTodo>
       <span>

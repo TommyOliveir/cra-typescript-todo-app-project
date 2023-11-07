@@ -1,4 +1,4 @@
-import React from "react";
+import React,{memo} from "react";
 import { Todo } from "./interface";
 import SingleTodo from "./SingleTodo";
 
@@ -7,8 +7,9 @@ interface TodoListProps {
   handleDone: (e: React.FormEvent, id: number) => void;
   handleDelete: (e: React.FormEvent, id: number) => void;
 }
-
-const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
+const TodoList = memo(({ todos, handleDone, handleDelete }: TodoListProps) => {
+// const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
+  console.log("todolist")
   return (
     <div>
       TodoList
@@ -27,6 +28,6 @@ const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
       })}
     </div>
   );
-};
+});
 
 export default TodoList;
