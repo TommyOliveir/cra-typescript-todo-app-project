@@ -12,7 +12,6 @@ const TodoList = memo(({ todos, handleDone, handleDelete }: TodoListProps) => {
  console.log('todlist')
   return (
     <div>
-      TodoList
       {todos.map((todo) => {
         return (
           <>

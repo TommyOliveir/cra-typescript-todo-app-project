@@ -6,9 +6,23 @@ const StyledInputContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2em;
 `;
 
-const StyledButton = styled.button`
+const StyledInput = styled.input`
+  width: 90%;
+  padding: 10px;
+  font-size: 1em;
+  outline: none;
+  border-radius: 2px;
+  border: 1px #6a6868 solid;
+  &:focus {
+    box-shadow: 0 0 5px rgb(255, 165, 0);
+    border: 2px solid rgb(255, 165, 0);
+  }
+`;
+
+export const StyledButton = styled.button`
   background: #ffa500;
   border-radius: 5px;
   outline: none;
@@ -17,6 +31,13 @@ const StyledButton = styled.button`
   color: #fff;
   padding: 1em 2em;
   margin-left: 5px;
+  transition: all 100ms ease-in;
+  &:active {
+    transform: scale(0.9);
+  }
+  &:hover {
+    background: #f09d02;
+  }
 `;
 
 interface InputFieldProps {
@@ -45,9 +66,8 @@ const InputField = ({ todo, setTodo, handleAdd }: InputFieldProps) => {
         }}
       >
         <StyledInputContainer>
-          <input
+          <StyledInput
             ref={inputRef}
-            style={{ width: "90%", padding: "10px", fontSize: "1em" }}
             type="text"
             value={todo}
             onChange={(e) => setTodo(e.target.value)}

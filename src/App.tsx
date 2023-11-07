@@ -12,6 +12,7 @@ const StyledTodo = styled.div`
   height: 600px;
   padding: 30px;
   border-radius: 10px;
+  overflow-x: hidden; 
 `;
 
 const StyledSloganDiv = styled.div`
