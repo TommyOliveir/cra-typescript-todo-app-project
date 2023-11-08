@@ -72,6 +72,11 @@ function todosReducer(state: TodosStateProps, action: TodosAction) {
       return {
         todos: state.todos.filter((todo) => todo.id !== payload),
       };
+    // case "edit_todo":
+    //   return {
+    //     todos: state.todos.map((todo) => todo.id === payload ? { ...todo, todo: payload } : todo))
+       
+    //   };
     default:
       return state;
   }
@@ -101,6 +106,9 @@ function App() {
     console.log("delete", id);
   }
 
+   function handleEditTodoSave(e: React.FormEvent, id: number) {
+     console.log("edit", id);
+   }
 
   console.log(state.todos);
   return (
@@ -113,11 +121,12 @@ function App() {
             setTodo={setTodo}
             handleAdd={memoizedhandleAdd}
           ></InputField>
-         
+
           <TodoList
             todos={state.todos}
             handleDone={memoizedhandleDone}
             handleDelete={handleDelete}
+            handleEditTodoSave={handleEditTodoSave}
           />
         </StyledTodo>
         <StyledSloganDiv>
