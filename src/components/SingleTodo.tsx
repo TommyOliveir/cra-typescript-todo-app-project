@@ -16,14 +16,12 @@ const StyledSingleTodo = styled.div`
   align-items: center;
 `;
 
-
 const StyledInputEdit = styled.input`
   outline: none;
   border: none;
   padding: 0.4em 0.5em;
   font-size: 1em;
   &:focus {
- 
     border-bottom: 1px solid #3c89b4;
   }
 `;
@@ -78,13 +76,17 @@ const SingleTodo = ({
     setChecked(!checked);
   };
 
+  const handleCurrentSave = (e: React.FormEvent) => {
+    setEdit(false);
+    handleEditTodoSave(e, id, editTodo);
+  };
 
-    const handleCurrentSave = (e: React.FormEvent) => {
-      setEdit(false)
-      handleEditTodoSave(e, id, editTodo)
-     
-    };
-
+  const handleKeyDownSaveEditTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      // The Enter key was pressed
+      handleCurrentSave(e);
+    }
+  };
 
   return (
     <StyledSingleTodo>
@@ -101,9 +103,12 @@ const SingleTodo = ({
           <StyledInputEdit
             value={editTodo}
             onChange={(e) => setEditTodo(e.target.value)}
+            onKeyDown={(e) => handleKeyDownSaveEditTodo(e)}
           />
         ) : (
-          <span style={{padding: ".5em"}}>{checked ? <s> {todo}</s> : todo}</span>
+          <span style={{ padding: ".5em" }}>
+            {checked ? <s> {todo}</s> : todo}
+          </span>
         )}
       </span>
       <span>

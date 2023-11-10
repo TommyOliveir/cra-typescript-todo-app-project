@@ -16,7 +16,7 @@ const StyledTodo = styled.div`
 `;
 
 const StyledSloganDiv = styled.div`
-  border: 1px red solid;
+  /* border: 1px red solid; */
   width: 600px;
   overflow-wrap: break-word;
   display: grid;
