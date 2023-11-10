@@ -112,8 +112,6 @@ const SingleTodo = ({
         )}
       </span>
       <span>
-        {" "}
-        {/* <StyledEditButton onClick={(e) => handleEdit(e, id)}> */}
         <StyledEditButton
           onClick={edit ? handleCurrentSave : handleCurrentEdit}
           style={{ background: edit ? "#00ba00" : "" }}
