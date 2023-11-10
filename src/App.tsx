@@ -12,7 +12,7 @@ const StyledTodo = styled.div`
   height: 600px;
   padding: 30px;
   border-radius: 10px;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 `;
 
 const StyledSloganDiv = styled.div`
@@ -49,7 +49,13 @@ interface TodoDoneDeleteAction {
   payload: number;
 }
 
-type TodosAction = TodoAddAction | TodoDoneDeleteAction;
+interface TodoSaveEditedAction {
+  type: "saveEdited_todo";
+  payload: string;
+  id: number; // Add this line
+}
+
+type TodosAction = TodoAddAction | TodoDoneDeleteAction | TodoSaveEditedAction;
 
 function todosReducer(state: TodosStateProps, action: TodosAction) {
   const { type, payload } = action;
@@ -72,11 +78,12 @@ function todosReducer(state: TodosStateProps, action: TodosAction) {
       return {
         todos: state.todos.filter((todo) => todo.id !== payload),
       };
-    // case "edit_todo":
-    //   return {
-    //     todos: state.todos.map((todo) => todo.id === payload ? { ...todo, todo: payload } : todo))
-       
-    //   };
+    case "saveEdited_todo":
+      return {
+        todos: state.todos.map((todo) =>
+          todo.id === action.id ? { ...todo, todo: payload } : todo
+        ),
+      };
     default:
       return state;
   }
@@ -106,9 +113,11 @@ function App() {
     console.log("delete", id);
   }
 
-   function handleEditTodoSave(e: React.FormEvent, id: number) {
-     console.log("edit", id);
-   }
+  function handleEditTodoSave(e: React.FormEvent, id: number, payload: string) {
+    dispatch({ type: "saveEdited_todo", id, payload });
+    console.log("edit", id);
+    console.log("editedsave");
+  }
 
   console.log(state.todos);
   return (

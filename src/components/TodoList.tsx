@@ -6,7 +6,7 @@ interface TodoListProps {
   todos: Todo[];
   handleDone: (e: React.FormEvent, id: number) => void;
   handleDelete: (e: React.FormEvent, id: number) => void;
-  handleEditTodoSave: (e: React.FormEvent, id: number) => void;
+  handleEditTodoSave: (e: React.FormEvent, id: number, payload: string) => void;
 }
 const TodoList = memo(
   ({ todos, handleDone, handleDelete, handleEditTodoSave }: TodoListProps) => {
@@ -21,6 +21,7 @@ const TodoList = memo(
                 key={todo.id}
                 id={todo.id}
                 todo={todo.todo}
+                todos={todos}
                 isdone={todo.isDone}
                 handleDone={handleDone}
                 handleDelete={handleDelete}
