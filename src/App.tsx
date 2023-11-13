@@ -1,4 +1,10 @@
-import React, { useReducer, useState, useCallback, useMemo } from "react";
+import React, {
+  useReducer,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import { Todo } from "./components/interface";
 import "./App.css";
 import InputField from "./components/InputField";
@@ -29,9 +35,9 @@ const StyledSlogan = styled.h1`
   margin: 0;
 `;
 
-const initialState = {
-  todos: [],
-};
+// const initialState = {
+//   todos: [],
+// };
 
 // state
 interface TodosStateProps {
@@ -39,6 +45,7 @@ interface TodosStateProps {
 }
 
 // actions
+
 interface TodoAddAction {
   type: "add_todo";
   payload: string;
@@ -91,7 +98,13 @@ function todosReducer(state: TodosStateProps, action: TodosAction) {
 
 function App() {
   const [todo, setTodo] = useState<string>("");
-  const [state, dispatch] = useReducer(todosReducer, initialState);
+  // const [state, dispatch] = useReducer(todosReducer, initialState);
+  const storedTodos = JSON.parse(localStorage.getItem("todos") || "[]");
+  const [state, dispatch] = useReducer(todosReducer, { todos: storedTodos });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(state.todos));
+  }, [state.todos]);
 
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -118,8 +131,8 @@ function App() {
     console.log("edit", id);
     console.log("editedsave");
   }
-
   console.log(state.todos);
+
   return (
     <>
       <div className="App">
