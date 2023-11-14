@@ -54,7 +54,7 @@ const InputField = ({ todo, setTodo, handleAdd }: InputFieldProps) => {
     inputRef.current?.focus();
   }, [todo]);
 
-  console.log("inpuField");
+  console.log("render inputField");
 
   return (
     <div>

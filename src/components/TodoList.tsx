@@ -11,7 +11,7 @@ interface TodoListProps {
 const TodoList = memo(
   ({ todos, handleDone, handleDelete, handleEditTodoSave }: TodoListProps) => {
     // const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
-    console.log("todlist");
+    console.log("render todolist");
     return (
       <div>
         {todos.map((todo) => {

@@ -133,6 +133,17 @@ function App() {
   }
   console.log(state.todos);
 
+  const memoizeTodoList = useMemo(() => {
+    return (
+      <TodoList
+        todos={state.todos}
+        handleDone={memoizedhandleDone}
+        handleDelete={handleDelete}
+        handleEditTodoSave={handleEditTodoSave}
+      />
+    );
+  }, [state.todos]);
+
   return (
     <>
       <div className="App">
@@ -144,12 +155,13 @@ function App() {
             handleAdd={memoizedhandleAdd}
           ></InputField>
 
-          <TodoList
+          {/* <TodoList
             todos={state.todos}
             handleDone={memoizedhandleDone}
             handleDelete={handleDelete}
             handleEditTodoSave={handleEditTodoSave}
-          />
+          /> */}
+          {memoizeTodoList}
         </StyledTodo>
         <StyledSloganDiv>
           <StyledSlogan>
@@ -158,7 +170,6 @@ function App() {
           </StyledSlogan>
         </StyledSloganDiv>
       </div>
-      
     </>
   );
 }
