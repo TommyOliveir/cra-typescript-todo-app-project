@@ -158,6 +158,7 @@ function App() {
           </StyledSlogan>
         </StyledSloganDiv>
       </div>
+      
     </>
   );
 }
