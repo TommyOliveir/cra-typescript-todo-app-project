@@ -133,6 +133,7 @@ function App() {
   }
   console.log(state.todos);
 
+  //update only when todos changed
   const memoizeTodoList = useMemo(() => {
     return (
       <TodoList
