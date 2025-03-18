@@ -54,8 +54,6 @@ const InputField = ({ todo, setTodo, handleAdd }: InputFieldProps) => {
     inputRef.current?.focus();
   }, [todo]);
 
-  console.log("inpuField");
-
   return (
     <div>
       <form
@@ -72,7 +70,7 @@ const InputField = ({ todo, setTodo, handleAdd }: InputFieldProps) => {
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
           />
-          <StyledButton>Save</StyledButton>
+          <StyledButton>Add</StyledButton>
         </StyledInputContainer>
       </form>
     </div>
