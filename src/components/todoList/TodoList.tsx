@@ -1,23 +1,22 @@
-import React,{memo} from "react";
-import { Todo } from "./interface";
-import SingleTodo from "./SingleTodo";
+import React, { memo } from "react";
+import { ITodo } from "../todo/interface";
+import { Todo } from "../todo/Todo";
+import { TodoListStyled } from "./styles";
 
 interface TodoListProps {
-  todos: Todo[];
+  todos: ITodo[];
   handleDone: (e: React.FormEvent, id: number) => void;
   handleDelete: (e: React.FormEvent, id: number) => void;
   handleEditTodoSave: (e: React.FormEvent, id: number, payload: string) => void;
 }
-const TodoList = memo(
+export const TodoList = memo(
   ({ todos, handleDone, handleDelete, handleEditTodoSave }: TodoListProps) => {
-    // const TodoList = ({ todos, handleDone, handleDelete }: TodoListProps) => {
-    console.log("todlist");
     return (
-      <div>
+      <TodoListStyled>
         {todos.map((todo) => {
           return (
             <>
-              <SingleTodo
+              <Todo
                 key={todo.id}
                 id={todo.id}
                 todo={todo.todo}
@@ -30,9 +29,7 @@ const TodoList = memo(
             </>
           );
         })}
-      </div>
+      </TodoListStyled>
     );
   }
 );
-
-export default TodoList;
